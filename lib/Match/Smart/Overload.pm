@@ -1,23 +1,17 @@
 package Match::Smart::Overload;
 use strict;
 use warnings FATAL => 'all';
-use Carp qw/croak confess cluck/;
 use XSLoader;
 
 XSLoader::load(__PACKAGE__, __PACKAGE__->VERSION);
 
-use overload 
+use overload
 	'~~' => sub {
 		my ($self, undef, $rev) = @_;
-		confess if not $rev;
-		return ! !$self->() for $_[1];
+		return if not $rev;
+		return $self->() for $_[1];
 	},
-	bool => 1 ? \&_boolean
-	: sub {
-		my $self = shift;
-		return ! !$self->();
-	},
-	fallback => 1;
+	bool => \&_boolean;
 
 sub new {
 	my ($class, $sub) = @_;

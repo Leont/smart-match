@@ -15,7 +15,5 @@ _boolean(self, ...)
 			DEFSV = UNDERBAR;
 		}
 		PUSHMARK(SP);
-		PUSHs(self);
-		PUTBACK;
-		call_sv(self, G_SCALAR);
+		call_sv(self, G_SCALAR | G_NOARGS);
 		SPAGAIN;

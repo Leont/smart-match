@@ -7,7 +7,6 @@ use warnings FATAL => 'all';
 use Carp qw/croak/;
 use List::MoreUtils qw//;
 use Scalar::Util qw(blessed looks_like_number);
-use Sub::Name;
 
 use Match::Smart::Overload;
 
@@ -34,7 +33,7 @@ use Sub::Exporter -setup => {
 		meta     => [qw/match delegate/],
 		string   => [qw/string string_length/],
 		refs     => [qw/object instance_of ref_type/],
-		arrays   => [qw/array array_length list head/],
+		arrays   => [qw/array array_length tuple head sequence/],
 		hashes   => [qw/hash hash_keys/],
 	},
 };
@@ -57,7 +56,7 @@ sub any {
 		for my $candidate (@possibilities) {
 			return 1 if $_ ~~ $candidate;
 		}
-		return 0;
+		return;
 	};
 }
 
@@ -93,17 +92,17 @@ sub one {
 	};
 }
 
-use constant always => match { return 1 };
-use constant never  => match { return };
+use constant always => match { 1 };
+use constant never  => match { };
 
-use constant true  => match { not not $_ };
+use constant true  => match { $_ };
 use constant false => match { not $_ };
 
 use constant number  => match { looks_like_number($_) };
 use constant integer => match { looks_like_number($_) and int == $_ };
 
-use constant even => match { scalar integer and +($_ % 2) == 0 };
-use constant odd  => match { scalar integer and +($_ % 2) == 1 };
+use constant even => match { scalar integer and $_ % 2 == 0 };
+use constant odd  => match { scalar integer and $_ % 2 == 1 };
 
 sub more_than {
 	my $cutoff = shift;
@@ -231,7 +230,7 @@ This matches if the left hand side is false.
 
 =func number()
 
-This matches ifV the left hand side is a number.
+This matches if the left hand side is a number.
 
 =func integer()
 
@@ -279,7 +278,7 @@ Matches the left hand side numerically with $number if that makes sense, returns
 
 =func string()
 
-Matches any string, that is any defined value that's not undefined an that's not a reference without string overloading.
+Matches any string, that is any defined value that's that's not a reference without string overloading.
 
 =func stringwise($string)
 
@@ -327,7 +326,7 @@ Matches any unblessed hash.
 
 =func hash_keys($matcher)
 
-
+Match a sorted list of hash keys against $matcher.
 
 =func match { ... }
 
@@ -335,4 +334,4 @@ Create a new matching function. It will be run with the left-hand side in C<$_>.
 
 =func delegate { ... } $matcher
 
-Run the block, and then match the returnvalue against C<$matcher>.
+Run the block, and then match the return value against C<$matcher>.
