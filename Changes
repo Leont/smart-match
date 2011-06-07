@@ -1,6 +1,8 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+
+0.002     2011-06-08 00:39:45 Europe/Amsterdam
     - Renamed from Match-Smart to Smart-Match because Match::Smart was already taken on CPAN
 
 0.001     2011-06-07 12:56:34 Europe/Amsterdam
