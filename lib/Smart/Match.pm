@@ -1,4 +1,4 @@
-package Match::Smart;
+package Smart::Match;
 
 use 5.010001;
 use strict;
@@ -8,7 +8,7 @@ use Carp qw/croak/;
 use List::MoreUtils qw//;
 use Scalar::Util qw(blessed looks_like_number);
 
-use Match::Smart::Overload;
+use Smart::Match::Overload;
 
 use Sub::Exporter -setup => {
 	exports => [qw/
@@ -42,7 +42,7 @@ use Sub::Exporter -setup => {
 sub match (&) {
 	my $sub = shift;
 
-	return Match::Smart::Overload->new($sub);
+	return Smart::Match::Overload->new($sub);
 }
 
 sub delegate (&@) {

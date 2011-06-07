@@ -7,7 +7,7 @@ use warnings;
 
 use Test::More 0.88;
 #use Test::NoWarnings;
-use Match::Smart -all;
+use Smart::Match -all;
 
 sub matches {
 	my ($left, $right, $message) = @_;

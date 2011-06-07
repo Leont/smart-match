@@ -1,4 +1,4 @@
-package Match::Smart::Overload;
+package Smart::Match::Overload;
 use strict;
 use warnings FATAL => 'all';
 use XSLoader;

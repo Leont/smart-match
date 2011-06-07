@@ -3,7 +3,7 @@
 #include "perl.h"
 #include "XSUB.h"
 
-MODULE = Match::Smart::Overload				PACKAGE = Match::Smart::Overload
+MODULE = Smart::Match::Overload				PACKAGE = Smart::Match::Overload
 
 int
 _boolean(self, ...)
