@@ -196,6 +196,33 @@ sub hash_keys {
 
 __END__
 
+=head1 SYNOPSIS
+
+ given ($foo) {
+     say 'We've got a positive number' when positive;
+     say 'We've got an array' when array;
+     say 'We've got a non-empty string' when string_length(positive);
+ }
+
+
+=head1 DESCRIPTION
+
+This module provides a number of helper functions for smartmatching. Some are simple functions that directly match the left hand side, such as
+
+ $foo ~~ positive
+ $bar ~~ array
+
+Others are higher-order matchers that take one or more matchers as an argument, such as
+
+ $foo ~~ string_length(positive)
+ $bar ~~ any(array, hash)
+
+Do note that ordinary values are matchers too, so
+
+ $baz ~~ any(1,2,3)
+
+will also do what you mean.
+
 =func always()
 
 This always matches.
