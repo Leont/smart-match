@@ -1,6 +1,8 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+
+0.003     2011-07-08 02:17:16 Europe/Amsterdam
           Added contains, sorted and hash_values
 
 0.002     2011-06-08 00:39:45 Europe/Amsterdam
