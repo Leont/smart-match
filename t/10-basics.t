@@ -98,6 +98,12 @@ matches(\%hash, hash_keys(sorted([qw/bar foo/])), '{ foo => 1, bar => 2 } matche
 nonmatches({ foo => 1, baz => 2 }, hash_keys(sorted([qw/bar foo/])), '{ foo => 1, baz => 2 } doesn\'t match hash_keys([qw/bar foo/])');
 matches(\%hash, hash_values(sorted(tuple(1, 2))), "\%hash matches hash_values(sorted(list(1, 2)))");
 nonmatches(\%hash, hash_values(sorted(tuple(1, 2, 3))), "\%hash matches hash_values(sorted(list(1, 2)))");
+matches(\%hash, sub_hash({ foo => 1 }), "\%hash matches one sub entry");
+matches(\%hash, sub_hash({ bar => 2 }), "\%hash matches one sub entry");
+nonmatches(\%hash, sub_hash({ bar => 1 }), "\%hash doesn't match sub entry with no match");
+matches(\%hash, sub_hash(\%hash), "\%hash matches itself");
+matches(\%hash, sub_hash({}), "\%hash matches {}");
+nonmatches([], sub_hash({ bar => 1 }), "\%hash doesn't match sub entry with no match");
 
 for (1) {
 	when(always) {

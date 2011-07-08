@@ -22,7 +22,7 @@ use Sub::Exporter -setup => {
 		string string_length
 		object instance_of ref_type
 		array array_length tuple head sequence contains sorted
-		hash hash_keys hash_values
+		hash hash_keys hash_values sub_hash
 	/],
 	groups => {
 		junctive => [qw/any all none one/],
@@ -34,7 +34,7 @@ use Sub::Exporter -setup => {
 		string   => [qw/string string_length/],
 		refs     => [qw/object instance_of ref_type/],
 		arrays   => [qw/array array_length tuple head sequence contains sorted/],
-		hashes   => [qw/hash hash_keys hash_values/],
+		hashes   => [qw/hash hash_keys hash_values sub_hash/],
 	},
 };
 
@@ -203,6 +203,20 @@ sub hash_keys {
 sub hash_values {
 	my $matcher = shift;
 	return match { scalar hash and [ values %{$_} ] ~~ $matcher };
+}
+
+sub sub_hash {
+	my $hash = shift;
+	return match {
+		return unless $_ ~~ hash;
+
+		return unless keys %$_ >= keys %$hash;
+
+		my $lhs = $_; # for grep { }
+		return if grep { not exists $lhs->{$_} } keys %$hash;
+
+		return [ @{$_}{keys %$hash} ] ~~ [ values %$hash ];
+	}
 }
 
 1;
@@ -381,6 +395,10 @@ Match a list of hash keys against C<$matcher>.
 =func hash_values($matches)
 
 Match a list of hash values against C<$matcher>
+
+=func sub_hash({ key => $matcher, ... })
+
+Matches each hash entry against a the corresponding matcher.
 
 =func match { ... }
 
