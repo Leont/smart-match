@@ -85,10 +85,19 @@ nonmatches([ 1, 2, 4 ], head(1, 2, 3), '[ 1, 2, 3 ] is head(1,2,3)');
 matches([ 1, 2, 3 ], sequence(number), '[ 1, 2, 3 ] is a sequence(number)');
 nonmatches([ 1, 2, 'a' ], sequence(number), '[ 1, 2, \'a\' ] is a sequence(number)');
 
+matches([ 1, 2, 3 ], contains(2), '[ 1, 2, 3 ] contains(2)');
+nonmatches([ 1, 2, 3 ], contains(4), '[ 1, 2, 3 ] doesn\'t contains(2)');
+
+matches([ 3, 1, 2 ], sorted([1, 2, 3]), "[ 3, 1, 2 ] matches sorted([1, 2, 3])");
+nonmatches([ 3, 1, 2 ], sorted([1, 3, 2]), "[ 3, 1, 2 ] matches sorted([1, 2, 3])");
+
+my %hash = ( foo => 1, bar => 2 );
 matches({}, hash, '{} is a hash');
 nonmatches([], hash, '[] is not a hash');
-matches({ foo => 1, bar => 2 }, hash_keys([qw/bar foo/]), '{ foo => 1, bar => 2 } matches hash_keys([qw/bar foo/])');
-nonmatches({ foo => 1, baz => 2 }, hash_keys([qw/bar foo/]), '{ foo => 1, baz => 2 } doesn\'t match hash_keys([qw/bar foo/])');
+matches(\%hash, hash_keys(sorted([qw/bar foo/])), '{ foo => 1, bar => 2 } matches hash_keys([qw/bar foo/])');
+nonmatches({ foo => 1, baz => 2 }, hash_keys(sorted([qw/bar foo/])), '{ foo => 1, baz => 2 } doesn\'t match hash_keys([qw/bar foo/])');
+matches(\%hash, hash_values(sorted(tuple(1, 2))), "\%hash matches hash_values(sorted(list(1, 2)))");
+nonmatches(\%hash, hash_values(sorted(tuple(1, 2, 3))), "\%hash matches hash_values(sorted(list(1, 2)))");
 
 for (1) {
 	when(always) {
