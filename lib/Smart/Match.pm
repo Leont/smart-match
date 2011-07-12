@@ -214,9 +214,9 @@ __END__
 =head1 SYNOPSIS
 
  given ($foo) {
-     say 'We've got a positive number' when positive;
-     say 'We've got an array' when array;
-     say 'We've got a non-empty string' when string_length(positive);
+     say "We've got a positive number" when positive;
+     say "We've got an array" when array;
+     say "We've got a non-empty string" when string_length(positive);
  }
 
 
