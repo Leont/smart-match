@@ -1,6 +1,7 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+          Added sub_hash (nothingmuch)
 
 0.003     2011-07-08 02:17:16 Europe/Amsterdam
           Added contains, sorted and hash_values

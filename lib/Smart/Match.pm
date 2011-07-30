@@ -208,15 +208,10 @@ sub hash_values {
 sub sub_hash {
 	my $hash = shift;
 	return match {
-		return unless $_ ~~ hash;
-
-		return unless keys %$_ >= keys %$hash;
-
 		my $lhs = $_; # for grep { }
-		return if grep { not exists $lhs->{$_} } keys %$hash;
 
-		return [ @{$_}{keys %$hash} ] ~~ [ values %$hash ];
-	}
+		$lhs ~~ hash and keys %{$lhs} >= keys %{$hash} and List::MoreUtils::all { exists $lhs->{$_} } keys %{$hash} and [ @{$lhs}{keys %{$hash}} ] ~~ [ values %{$hash} ];
+	};
 }
 
 1;
