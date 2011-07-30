@@ -1,7 +1,9 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+          Added hashwise, value, address and sorted_by
           Added sub_hash (nothingmuch)
+          Improved contains to allow for multiple values
 
 0.003     2011-07-08 02:17:16 Europe/Amsterdam
           Added contains, sorted and hash_values
