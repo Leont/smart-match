@@ -55,6 +55,10 @@ matches('0001', numwise(1), '1 is numwise(1)');
 nonmatches(2, numwise(3), '2 is not numwise(3)');
 nonmatches('foo', numwise(1), '\'foo\' is not numwise(1)');
 
+matches(2, any(numwise(1,2,3)), '2 is any(numwise(1,2,3))');
+nonmatches('2foo', any(numwise(1,2,3)), '"2foo" is any(numwise(1,2,3))');
+nonmatches(4, any(numwise(1,2,3)), '4 is any(numwise(1,2,3))');
+
 matches(1, string, '1 is a string');
 matches('foo', string, '\'foo\' is a string');
 nonmatches([ 1 ], string, '[ 1 ] is not a string');

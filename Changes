@@ -1,6 +1,7 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+          Allow numwise and stringwise to return multiple matchers
 
 0.004     2011-07-30 21:49:31 Europe/Amsterdam
           Added hashwise, value, address and sorted_by
