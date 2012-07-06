@@ -1,6 +1,8 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+
+0.005     2012-07-06 15:23:21 Europe/Bucharest
           Allow numwise and stringwise to return multiple matchers
 
 0.004     2011-07-30 21:49:31 Europe/Amsterdam
