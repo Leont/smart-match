@@ -1,6 +1,7 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+          Switched to Sub::Exporter::Progressive
 
 0.005     2012-07-06 15:23:21 Europe/Bucharest
           Allow numwise and stringwise to return multiple matchers

@@ -10,7 +10,7 @@ use Scalar::Util qw(blessed looks_like_number refaddr);
 
 use Smart::Match::Overload;
 
-use Sub::Exporter -setup => {
+use Sub::Exporter::Progressive -setup => {
 	exports => [qw/
 		match delegate
 		always never
@@ -285,7 +285,6 @@ __END__
      say "We've got an array" when array;
      say "We've got a non-empty string" when string_length(positive);
  }
-
 
 =head1 DESCRIPTION
 
