@@ -1,6 +1,8 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+
+0.006     2013-05-14 20:25:41 Europe/Amsterdam
           Switched to Sub::Exporter::Progressive
           Disable smartmatch warning on 5.17.11+
 
