@@ -9,6 +9,8 @@ use Test::More 0.88;
 #use Test::NoWarnings;
 use Smart::Match -all;
 
+use experimental 'smartmatch';
+
 sub matches {
 	my ($left, $right, $message) = @_;
 	local $Test::Builder::Level = $Test::Builder::Level + 1;

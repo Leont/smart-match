@@ -3,7 +3,7 @@ package Smart::Match;
 use 5.010001;
 use strict;
 use warnings FATAL => 'all';
-no if $] >= 5.017011, warnings => 'experimental::smartmatch';
+use experimental 'smartmatch';
 
 use Carp qw/croak/;
 use List::MoreUtils qw//;
