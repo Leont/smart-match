@@ -1,6 +1,7 @@
 Revision history for Smart-Match
 
 {{$NEXT}}
+          Take into account hash randomization
           Switch to Module::Build::Tiny
           Really surpress experimental warnings
 

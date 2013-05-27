@@ -244,7 +244,7 @@ sub sub_hash {
 
 sub hashwise {
 	my $hash = shift;
-	return match { scalar hash and hash_keys([ keys %{$hash} ]) and [ @{$_}{keys %{$hash}} ] ~~ [ values %{$hash} ] };
+	return match { scalar hash and hash_keys(sorted([ sort keys %{$hash} ])) and [ @{$_}{keys %{$hash}} ] ~~ [ values %{$hash} ] };
 }
 
 sub value {
