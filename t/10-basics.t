@@ -1,6 +1,5 @@
 #!/usr/bin/perl
 
-
 use 5.010;
 use strict;
 use warnings;
@@ -58,8 +57,8 @@ nonmatches(2, numwise(3), '2 is not numwise(3)');
 nonmatches('foo', numwise(1), '\'foo\' is not numwise(1)');
 
 matches(2, any(numwise(1,2,3)), '2 is any(numwise(1,2,3))');
-nonmatches('2foo', any(numwise(1,2,3)), '"2foo" is any(numwise(1,2,3))');
-nonmatches(4, any(numwise(1,2,3)), '4 is any(numwise(1,2,3))');
+nonmatches('2foo', any(numwise(1,2,3)), '"2foo" is not any(numwise(1,2,3))');
+nonmatches(4, any(numwise(1,2,3)), '4 is not any(numwise(1,2,3))');
 
 matches(1, string, '1 is a string');
 matches('foo', string, '\'foo\' is a string');
@@ -73,7 +72,7 @@ matches('foo', string_length(3), '\'foo\' is string_length(3)');
 matches('foo', string_length(odd), '\'foo\' is string_length(odd)');
 nonmatches('foo', string_length(negative), '\'foo\' is not string_length(negative)');
 
-matches(bless([], 'main'), object, 'bless([], \'main\')is an object');
+matches(bless([], 'main'), object, 'bless([], \'main\') is an object');
 nonmatches('foo', object, '\'foo\' is not an object');
 
 matches([ 1 ], array, '[ 1 ] is an array');
@@ -85,31 +84,31 @@ matches([ 1, 2, 3 ], array_length(3), '[ 1, 2, 3 ] matches array_length(3)');
 matches([ 1, 2, 3 ], head(1, 2, 3), '[ 1, 2, 3 ] is head(1,2,3)');
 matches([ 1, 2, 3 ], head(1, 2), '[ 1, 2, 3 ] is head(1,2)');
 matches([ 1, 2, 3 ], head(1), '[ 1, 2, 3 ] is head(1)');
-nonmatches([ 1, 2 ], head(1, 2, 3), '[ 1, 2, 3 ] is head(1,2,3)');
-nonmatches([ 1, 2, 4 ], head(1, 2, 3), '[ 1, 2, 3 ] is head(1,2,3)');
+nonmatches([ 1, 2 ], head(1, 2, 3), '[ 1, 2 ] is not head(1,2,3)');
+nonmatches([ 1, 2, 4 ], head(1, 2, 3), '[ 1, 2, 4 ] is not head(1,2,3)');
 
 matches([ 1, 2, 3 ], sequence(number), '[ 1, 2, 3 ] is a sequence(number)');
-nonmatches([ 1, 2, 'a' ], sequence(number), '[ 1, 2, \'a\' ] is a sequence(number)');
+nonmatches([ 1, 2, 'a' ], sequence(number), '[ 1, 2, \'a\' ] is not a sequence(number)');
 
-matches([ 1, 2, 3 ], contains(2), '[ 1, 2, 3 ] contains(2)');
-matches([ 1, 2, 3 ], contains(1,2,3), , '[ 1, 2, 3 ] contains(1,2,3)');
-nonmatches([ 1, 2, 3 ], contains(4), '[ 1, 2, 3 ] doesn\'t contains(2)');
-nonmatches([ 1, 2, 3 ], contains(1,2,4), , '[ 1, 2, 3 ] doesn\'t contains(1,2,4)');
+matches([ 1, 2, 3 ], contains(2), '[ 1, 2, 3 ] matches contains(2)');
+matches([ 1, 2, 3 ], contains(1,2,3), '[ 1, 2, 3 ] matches contains(1,2,3)');
+nonmatches([ 1, 2, 3 ], contains(4), '[ 1, 2, 3 ] doesn\'t match contains(2)');
+nonmatches([ 1, 2, 3 ], contains(1,2,4), '[ 1, 2, 3 ] doesn\'t match contains(1,2,4)');
 
 matches([ 3, 1, 2 ], sorted([1, 2, 3]), "[ 3, 1, 2 ] matches sorted([1, 2, 3])");
-nonmatches([ 3, 1, 2 ], sorted([1, 3, 2]), "[ 3, 1, 2 ] matches sorted([1, 2, 3])");
+nonmatches([ 3, 1, 2 ], sorted([1, 3, 2]), "[ 3, 1, 2 ] doesn't match sorted([1, 3, 2])");
 
 matches([ 3, 10, 2 ], sorted([10, 2, 3]), "[ 3, 10, 2 ] matches sorted([10, 2, 3])");
 matches([ 3, 10, 2 ], sorted_by(sub { $_[0] <=> $_[1] }, [2, 3, 10]), "[ 3, 10, 2 ] matches sorted_by(sub { \$_[0] <=> \$_[1] }, [2, 3, 10])");
 
-
 my %hash = ( foo => 1, bar => 2 );
+
 matches({}, hash, '{} is a hash');
 nonmatches([], hash, '[] is not a hash');
 matches(\%hash, hash_keys(sorted([qw/bar foo/])), '{ foo => 1, bar => 2 } matches hash_keys([qw/bar foo/])');
 nonmatches({ foo => 1, baz => 2 }, hash_keys(sorted([qw/bar foo/])), '{ foo => 1, baz => 2 } doesn\'t match hash_keys([qw/bar foo/])');
-matches(\%hash, hash_values(sorted(tuple(1, 2))), "\\%hash matches hash_values(sorted(list(1, 2)))");
-nonmatches(\%hash, hash_values(sorted(tuple(1, 2, 3))), "\\%hash matches hash_values(sorted(list(1, 2)))");
+matches(\%hash, hash_values(sorted(tuple(1, 2))), "\\%hash matches hash_values(sorted(tuple(1, 2)))");
+nonmatches(\%hash, hash_values(sorted(tuple(1, 2, 3))), "\\%hash doesn't match hash_values(sorted(tuple(1, 2, 3)))");
 
 matches({}, hashwise({}), "{} matches hashwise({})");
 matches(\%hash, hashwise(\%hash), "%hash matches hashwise(\\%hash)");
@@ -118,15 +117,15 @@ nonmatches(\%hash, hashwise({}), "\\%hash doesn't match hashwise({})");
 
 matches(\%hash, sub_hash({ foo => 1 }), "\\%hash matches one sub entry");
 matches(\%hash, sub_hash({ bar => 2 }), "\\%hash matches one sub entry");
-nonmatches(\%hash, sub_hash({ bar => 1 }), "\\%hash doesn't match sub entry with no match");
+nonmatches(\%hash, sub_hash({ bar => 1 }), "\\%hash doesn't match sub entry with any match");
 matches(\%hash, sub_hash(\%hash), "\\%hash matches itself");
 matches(\%hash, sub_hash({}), "\\%hash matches {}");
-nonmatches([], sub_hash({ bar => 1 }), "\\%hash doesn't match sub entry with no match");
+nonmatches([], sub_hash({ bar => 1 }), "\\%hash doesn't match sub entry with any match");
 
 my $sub = sub {};
 
 matches($sub, address($sub), '$sub matches address($sub)');
-nonmatches($sub, address(sub {}), '$sub matches address(sub {})');
+nonmatches($sub, address(sub {}), '$sub doesn\'t match address(sub {})');
 
 matches(1, value(1), '[ 1 ] is value(1)');
 nonmatches(1, value(2), '[ 1 ] is not value(2)');
@@ -137,7 +136,7 @@ matches(\%hash, value(\%hash), "%hash matches value(\\%hash)");
 nonmatches({}, value(\%hash), "{} doesn't match value(\\%hash)");
 nonmatches(\%hash, value({}), "\\%hash doesn't match value({})");
 matches($sub, value($sub), '$sub matches value($sub)');
-nonmatches($sub, value(sub {}), '$sub matches value(sub {})');
+nonmatches($sub, value(sub {}), '$sub doesn\'t match value(sub {})');
 
 for (1) {
 	when(always) {
