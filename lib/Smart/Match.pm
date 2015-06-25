@@ -6,7 +6,7 @@ use warnings FATAL => 'all';
 use experimental 'smartmatch';
 
 use Carp qw/croak/;
-use List::MoreUtils qw//;
+use List::Util 1.33 qw//;
 use Scalar::Util qw(blessed looks_like_number refaddr);
 
 use Smart::Match::Overload;
@@ -195,7 +195,7 @@ sub tuple {
 
 sub sequence {
 	my $matcher = shift;
-	return match { scalar array and List::MoreUtils::all { $_ ~~ $matcher } @{$_} };
+	return match { scalar array and List::Util::all { $_ ~~ $matcher } @{$_} };
 }
 
 sub head {
@@ -207,7 +207,7 @@ sub contains {
 	my @matchers = @_;
 	return match {
 		my $lsh = $_;
-		$_ ~~ array and List::MoreUtils::all { my $matcher = $_; List::MoreUtils::any { $_ ~~ $matcher } @{$lsh} } @matchers;
+		$_ ~~ array and List::Util::all { my $matcher = $_; List::Util::any { $_ ~~ $matcher } @{$lsh} } @matchers;
 	};
 }
 
@@ -238,7 +238,7 @@ sub sub_hash {
 	return match {
 		my $lhs = $_; # for grep { }
 
-		$lhs ~~ hash and keys %{$lhs} >= keys %{$hash} and List::MoreUtils::all { exists $lhs->{$_} } keys %{$hash} and [ @{$lhs}{keys %{$hash}} ] ~~ [ values %{$hash} ];
+		$lhs ~~ hash and keys %{$lhs} >= keys %{$hash} and List::Util::all { exists $lhs->{$_} } keys %{$hash} and [ @{$lhs}{keys %{$hash}} ] ~~ [ values %{$hash} ];
 	};
 }
 
