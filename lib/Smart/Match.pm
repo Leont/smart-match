@@ -23,7 +23,7 @@ use Sub::Exporter::Progressive -setup => {
 		string string_length
 		object instance_of ref_type
 		array array_length tuple head sequence contains contains_any sorted sorted_by
-		hash hash_keys hash_values sub_hash hashwise
+		hash hash_keys hash_values sub_hash hashwise keywise
 		address value
 	/],
 	groups => {
@@ -36,7 +36,7 @@ use Sub::Exporter::Progressive -setup => {
 		string   => [qw/string string_length/],
 		refs     => [qw/object instance_of ref_type/],
 		arrays   => [qw/array array_length tuple head sequence contains contains_any sorted/],
-		hashes   => [qw/hash hash_keys hash_values sub_hash/],
+		hashes   => [qw/hash hash_keys hash_values sub_hash hashwise keywise/],
 		direct   => [qw/address value/],
 	},
 };
@@ -252,7 +252,12 @@ sub sub_hash {
 
 sub hashwise {
 	my $hash = shift;
-	return match { scalar hash and hash_keys(sorted([ sort keys %{$hash} ])) and [ @{$_}{keys %{$hash}} ] ~~ [ values %{$hash} ] };
+	return match { scalar hash and [ sort keys %{$_} ] ~~ [ sort keys %{$hash} ] and [ @{$_}{ keys %{$hash}} ] ~~ [ values %{$hash} ] };
+}
+
+sub keywise {
+	my $hash = shift;
+	return match { scalar hash and [ sort keys %{$_} ] ~~ [ sort keys %{$hash} ] };
 }
 
 sub value {
@@ -460,6 +465,10 @@ Matches any unblessed hash.
 =func hashwise($hashref)
 
 Matches a hash for against C<$hashref>. The keys must be identical, and all keys in the hash much smartmatch the keys in $hashref.
+
+=func keywise($hashref)
+
+Matches a hash for against C<$hashref>. The keys must be identical.
 
 =func hash_keys($matcher)
 

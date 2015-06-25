@@ -120,6 +120,12 @@ matches(\%hash, hashwise(\%hash), "%hash matches hashwise(\\%hash)");
 nonmatches({}, hashwise(\%hash), "{} doesn't match hashwise(\\%hash)");
 nonmatches(\%hash, hashwise({}), "\\%hash doesn't match hashwise({})");
 
+matches({}, keywise({}), "{} matches keywise({})");
+matches(\%hash, keywise(\%hash), "%hash matches keywise(\\%hash)");
+nonmatches({}, keywise(\%hash), "{} doesn't match keywise(\\%hash)");
+nonmatches(\%hash, keywise({}), "\\%hash doesn't match keywise({})");
+matches({ foo => 1 }, keywise({ foo => 2 }), "keywise doesn't care about values");
+
 matches(\%hash, sub_hash({ foo => 1 }), "\\%hash matches one sub entry");
 matches(\%hash, sub_hash({ bar => 2 }), "\\%hash matches one sub entry");
 nonmatches(\%hash, sub_hash({ bar => 1 }), "\\%hash doesn't match sub entry with any match");

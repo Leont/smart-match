@@ -2,7 +2,7 @@ Revision history for Smart-Match
 
 {{$NEXT}}
           Switch from List::MoreUtils to List::Util
-          Add contains_any
+          Add contains_any and keywise
 
 0.007     2013-05-27 17:12:32 Europe/Amsterdam
           Take into account hash randomization
