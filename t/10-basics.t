@@ -95,6 +95,11 @@ matches([ 1, 2, 3 ], contains(1,2,3), '[ 1, 2, 3 ] matches contains(1,2,3)');
 nonmatches([ 1, 2, 3 ], contains(4), '[ 1, 2, 3 ] doesn\'t match contains(2)');
 nonmatches([ 1, 2, 3 ], contains(1,2,4), '[ 1, 2, 3 ] doesn\'t match contains(1,2,4)');
 
+matches([ 1, 2, 3 ], contains_any(2), '[ 1, 2, 3 ] contains_any(2)');
+matches([ 1, 2, 3 ], contains_any(1,2,3), , '[ 1, 2, 3 ] contains_any(1,2,3)');
+nonmatches([ 1, 2, 3 ], contains_any(4), '[ 1, 2, 3 ] does contains_any(2)');
+matches([ 1, 2, 3 ], contains_any(1,2,4), , '[ 1, 2, 3 ] doesn contains_any(1,2,4)');
+
 matches([ 3, 1, 2 ], sorted([1, 2, 3]), "[ 3, 1, 2 ] matches sorted([1, 2, 3])");
 nonmatches([ 3, 1, 2 ], sorted([1, 3, 2]), "[ 3, 1, 2 ] doesn't match sorted([1, 3, 2])");
 

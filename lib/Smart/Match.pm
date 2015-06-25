@@ -22,7 +22,7 @@ use Sub::Exporter::Progressive -setup => {
 		numwise stringwise
 		string string_length
 		object instance_of ref_type
-		array array_length tuple head sequence contains sorted sorted_by
+		array array_length tuple head sequence contains contains_any sorted sorted_by
 		hash hash_keys hash_values sub_hash hashwise
 		address value
 	/],
@@ -35,7 +35,7 @@ use Sub::Exporter::Progressive -setup => {
 		meta     => [qw/match delegate/],
 		string   => [qw/string string_length/],
 		refs     => [qw/object instance_of ref_type/],
-		arrays   => [qw/array array_length tuple head sequence contains sorted/],
+		arrays   => [qw/array array_length tuple head sequence contains contains_any sorted/],
 		hashes   => [qw/hash hash_keys hash_values sub_hash/],
 		direct   => [qw/address value/],
 	},
@@ -208,6 +208,14 @@ sub contains {
 	return match {
 		my $lsh = $_;
 		$_ ~~ array and List::Util::all { my $matcher = $_; List::Util::any { $_ ~~ $matcher } @{$lsh} } @matchers;
+	};
+}
+
+sub contains_any {
+	my @matchers = @_;
+	return match {
+		my $lsh = $_;
+		$_ ~~ array and List::Util::any { my $matcher = $_; List::Util::any { $_ ~~ $matcher } @{$lsh} } @matchers;
 	};
 }
 
@@ -429,9 +437,13 @@ Matches a list whose head elements match C<@entries> one by one.
 
 Matches a list whose elements all match C<$matcher>.
 
-=func contains(@matcher)
+=func contains(@matchers)
 
-Matches a list that for all of C<@matcher>s contains a matching element.
+Matches a list that contains a matching element for all of C<@matchers>.
+
+=func contains_any(@matcher)
+
+Matches a list that contains a matching element for any of C<@matchers>.
 
 =func sorted($matcher)
 
