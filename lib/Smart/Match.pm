@@ -2,7 +2,7 @@ package Smart::Match;
 
 use 5.010001;
 use strict;
-use warnings FATAL => 'all';
+use warnings;
 use experimental 'smartmatch';
 
 use Carp qw/croak/;
