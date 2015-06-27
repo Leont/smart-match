@@ -318,6 +318,10 @@ Do note that ordinary values are matchers too, so
 
 will also do what you mean.
 
+=head1 FUNCTIONS
+
+This module optionally exports all described functions, but none are exported by default.
+
 =func always()
 
 This always matches.
