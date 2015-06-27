@@ -173,7 +173,7 @@ sub instance_of {
 
 sub ref_type {
 	my $type = shift;
-	return match { ref eq $type };
+	return match { !blessed($_) && ref eq $type };
 }
 
 sub address {
@@ -185,7 +185,7 @@ use constant array => ref_type('ARRAY');
 
 sub array_length {
 	my $match = shift;
-	return match { scalar array and @{$_} + 0 ~~ $match };
+	return match { scalar array and scalar(@{$_}) ~~ $match };
 }
 
 sub tuple {

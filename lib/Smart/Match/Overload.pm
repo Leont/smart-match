@@ -1,6 +1,7 @@
 package Smart::Match::Overload;
+
 use strict;
-use warnings FATAL => 'all';
+use warnings;
 use XSLoader;
 
 XSLoader::load(__PACKAGE__, __PACKAGE__->VERSION);
@@ -20,9 +21,7 @@ sub new {
 
 1;
 
-# A class for closure based matcher objects.
-
-__END__
+# ABSTRACT: An internal class for closure based matcher objects.
 
 =method new($sub)
 
