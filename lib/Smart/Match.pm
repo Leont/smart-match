@@ -400,7 +400,7 @@ A synonym for C<all(at_least($bottom, at_most($top))>.
 
 =func numwise($number, ...)
 
-Matches the left hand side numerically with $number if that makes sense, returns false otherwise. If given multiple numbers it will return multiple matchers.
+Matches the left hand side numerically with C<$number> if that makes sense, returns false otherwise. If given multiple numbers it will return multiple matchers.
 
 =func string()
 
@@ -408,11 +408,11 @@ Matches any string, that is any defined value that's that's not a reference with
 
 =func stringwise($string, ...)
 
-Matches the left hand side lexographically with $string if that makes sense, returns false otherwise. If given multiple strings it will return multiple matchers.
+Matches the left hand side lexographically with C<$string> if that makes sense, returns false otherwise. If given multiple strings it will return multiple matchers.
 
 =func string_length($matcher)
 
-Matches the string's length 
+Matches the string's length.
 
 =func object()
 
@@ -424,7 +424,7 @@ Matches any instance of class C<$class>.
 
 =func ref_type($type)
 
-Matches any unblessed reference of type $type.
+Matches any unblessed reference of type C<$type>.
 
 =func array()
 
@@ -438,7 +438,7 @@ Matches any unblessed array whose length matches C<$matcher>.
 
 Matches a list whose elements match C<@entries> one by one.
 
-=func head(@elements)
+=func head(@entries)
 
 Matches a list whose head elements match C<@entries> one by one.
 
@@ -450,7 +450,7 @@ Matches a list whose elements all match C<$matcher>.
 
 Matches a list that contains a matching element for all of C<@matchers>.
 
-=func contains_any(@matcher)
+=func contains_any(@matchers)
 
 Matches a list that contains a matching element for any of C<@matchers>.
 
@@ -460,7 +460,7 @@ Sorts a list and matches it against C<$matcher>.
 
 =func sorted_by($sorter, $matcher)
 
-Sorts a list using $sorter and matches it against C<$matcher>.
+Sorts a list using C<$sorter> and matches it against C<$matcher>.
 
 =func hash()
 
@@ -468,7 +468,7 @@ Matches any unblessed hash.
 
 =func hashwise($hashref)
 
-Matches a hash for against C<$hashref>. The keys must be identical, and all keys in the hash much smartmatch the keys in $hashref.
+Matches a hash for against C<$hashref>. The keys must be identical, and all keys in the hash much smartmatch the keys in C<$hashref>.
 
 =func keywise($hashref)
 
@@ -478,9 +478,9 @@ Matches a hash for against C<$hashref>. The keys must be identical.
 
 Match a list of hash keys against C<$matcher>.
 
-=func hash_values($matches)
+=func hash_values($matcher)
 
-Match a list of hash values against C<$matcher>
+Match a list of hash values against C<$matcher>.
 
 =func sub_hash({ key => $matcher, ... })
 
@@ -496,7 +496,7 @@ Run the block, and then match the return value against C<$matcher>.
 
 =func address($var)
 
-Matches if the left hand side has the same address as $var.
+Matches if the left hand side has the same address as C<$var>.
 
 =func value
 
